@@ -3,6 +3,7 @@ const http = require("http");
 const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
+const threadsService2 = require('./heywoo/threadsService2.js')
 
 dotenv.config();
 
@@ -12,7 +13,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.get("/ping", async (req, res) => {
+/*app.get("/ping", async (req, res) => {
   try {
     res.status(200).json({
       message: "pong",
@@ -20,7 +21,9 @@ app.get("/ping", async (req, res) => {
   } catch (error) {
     console.error(error);
   }
-});
+});*/
+
+app.get("/threads/getList", threadsService2.threadsList)
 
 const start = async () => {
   try {

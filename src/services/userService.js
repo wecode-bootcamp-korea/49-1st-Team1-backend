@@ -3,12 +3,6 @@ const bcrypt = require("bcrypt");
 const userDao = require("../models/userDao");
 
 const signUp = async (nickname, email, password, phoneNumber, birthday, profileImage) => {
-  if (!email || !password || !nickname) {
-    const error = new Error("KEY_ERROR");
-    error.status = 400;
-    throw error;
-  }
-
   const emailRegExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
   if (!emailRegExp.test(email)) {
     const error = new Error("INVALID_EMAIL_ADDRESS");

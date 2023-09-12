@@ -26,7 +26,7 @@ const signIn = async (req, res) => {
 
   const token = await userService.signIn(email, password);
 
-  res.status(201).json({
+  res.status(200).json({
     message: "LOGIN_SUCCESS",
     accessToken: token,
   });

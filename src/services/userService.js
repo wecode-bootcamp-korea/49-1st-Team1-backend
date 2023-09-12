@@ -36,7 +36,7 @@ const signUp = async (nickname, email, password, phoneNumber, birthday, profileI
     throw error;
   }
 
-  const encryptedPw = await bcrypt.hash(password, 2);
+  const encryptedPw = await bcrypt.hash(password, 10);
 
   await userDao.save(nickname, email, encryptedPw, phoneNumber, birthday, profileImage);
 };

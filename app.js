@@ -17,26 +17,22 @@ app.use(routers);
 
 app.use(errorHandler);
 
-const threads = require ('./dana/thread.js')
-
-
-
 app.get("/ping", async (req, res) => {
   try {
     res.status(200).json({
-      message: "pong"
+      message: "pong",
     });
   } catch (error) {
     console.error(error);
   }
 });
 
-app.post ('/newThread', threads.thread_write) 
-app.delete('/deleteThread', threads.thread_delete)
-
 const start = async () => {
   try {
-    app.listen(process.env.SERVER_PORT, () => console.log("server is listening in PORT 8000"));
+    await myDataSource.initialize().then(() => console.log("Data Source has been initialized!"));
+
+    const port = process.env.SERVER_PORT;
+    app.listen(port, () => console.log(`server is listening in PORT ${port}`));
   } catch (error) {
     console.error(error);
   }

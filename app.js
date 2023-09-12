@@ -12,19 +12,26 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 
+const threads = require ('./dana/thread.js')
+
+
+
 app.get("/ping", async (req, res) => {
   try {
     res.status(200).json({
-      message: "pong",
+      message: "pong"
     });
   } catch (error) {
     console.error(error);
   }
 });
 
+app.post ('/newThread', threads.thread_write) 
+app.delete('/deleteThread', threads.thread_delete)
+
 const start = async () => {
   try {
-    app.listen(process.env.SERVER_PORT, () => console.log("server is listening in PORT 8000"));
+    app.listen (process.env.SERVER_PORT, () => console.log("server is listening in PORT 8000"));
   } catch (error) {
     console.error(error);
   }

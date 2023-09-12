@@ -6,7 +6,7 @@ const signUp = async (req, res) => {
     password,
     phoneNumber,
     birthday,
-    profileImage = "https://file.notion.so/f/f/fc7a0770-8294-4680-9cb3-c81efe407127/b5f725e6-ab7c-44cc-ad87-1214e26017a9/Untitled.jpeg?id=9589c573-1bbb-48d7-a06b-a0502555d9cd&table=block&spaceId=fc7a0770-8294-4680-9cb3-c81efe407127&expirationTimestamp=1694498400000&signature=HaKy6Iu4eI1EDtDNukBMxEpac-uWJ7yl4E4vx147ODo&downloadName=Untitled.jpeg",
+    profileImage = "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ffc7a0770-8294-4680-9cb3-c81efe407127%2Fb5f725e6-ab7c-44cc-ad87-1214e26017a9%2FUntitled.jpeg?table=block&id=9589c573-1bbb-48d7-a06b-a0502555d9cd&spaceId=fc7a0770-8294-4680-9cb3-c81efe407127&width=2000&userId=3389c2f0-8e40-4e50-a5a8-1876a4ee6b79&cache=v2",
   } = req.body;
   const nickname = req.body.nickname || email.substring(0, email.indexOf("@"));
 

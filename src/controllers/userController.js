@@ -24,6 +24,12 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    const error = new Error("KEY_ERROR");
+    error.status = 400;
+    throw error;
+  }
+
   const token = await userService.signIn(email, password);
 
   res.status(200).json({

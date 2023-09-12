@@ -42,12 +42,6 @@ const signUp = async (nickname, email, password, phoneNumber, birthday, profileI
 };
 
 const signIn = async (email, password) => {
-  if (!email || !password) {
-    const error = new Error("KEY_ERROR");
-    error.status = 400;
-    throw error;
-  }
-
   const existingUser = await userDao.findByEmail(email);
   if (!existingUser) {
     const error = new Error("ACCOUNT_DOES_NOT_EXIST");

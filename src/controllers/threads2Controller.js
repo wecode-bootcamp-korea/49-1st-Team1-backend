@@ -6,7 +6,7 @@ const threadsList = async (req, res) => {
         const threadsData = await threads2Service.threadsList();
         
         console.log("threadsData : ", threadsData)
-        
+
         return res.status(201).json({
             "data" : threadsData
         })
@@ -15,6 +15,16 @@ const threadsList = async (req, res) => {
     }
   }
 
+  const modifyThreads = async () => {
+    try {
+
+
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
   module.exports = {
-    "threadsList" : threadsList
+    threadsList,
+    modifyThreads
   }

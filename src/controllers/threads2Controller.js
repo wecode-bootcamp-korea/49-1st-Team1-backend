@@ -1,6 +1,6 @@
 const threads2Service = require('../services/threads2Service');
 
-// 쓰레드 목록 보기(최신순 정렬)
+// 쓰레드 목록 보기
 const threadsList = async (req, res) => {
     try {
         const threadsData = await threads2Service.threadsList();
@@ -15,12 +15,18 @@ const threadsList = async (req, res) => {
     }
   }
 
-  const modifyThreads = async () => {
+  //자신의 쓰레드 수정하기
+  const modifyThreads = async (req, res) => {
     try {
+       const { id } = req.params;
+       const { content } = req.body;
+       const { foundUser } = req;
 
-
+       await threads2Service.modifyThreads(foundUser, id, content)
+       res.status(200).json({message : "update success" })
+    
     } catch (err) {
-        console.log(err)
+        console.error(err);
     }
   }
 

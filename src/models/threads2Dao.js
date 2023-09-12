@@ -23,6 +23,40 @@ const threadsList = async () => {
 
 }
 
-const modifyThreads = async
+const findThreadById = async (id) => {
+    
+    try {
+        const thread = await myDataSource.query (
+            `
+            SELECT * FROM threads WHERE id = ?
+            `, [id]
+        )
+        console.log("findThreadById : ", thread)
 
-module.exports = { threadsList }
+        return thread;
+
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
+const modifyThreads = async (id, content) => {
+
+    try {
+        
+        await myDataSource.query (
+            `
+            UPDATE threads
+            SET content = ?
+            WHERE id = ?
+            `,
+            [content, id]
+        )
+
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+module.exports = { threadsList, findThreadById, modifyThreads }

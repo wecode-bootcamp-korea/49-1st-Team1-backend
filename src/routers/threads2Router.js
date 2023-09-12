@@ -6,6 +6,6 @@ const { asyncWrap } = require("../utils/errorHandler");
 const router = express.Router();
 
 router.get("/", asyncWrap(threads2Controller.threadsList));
-router.put("/modifyThreads", validateToken, asyncWrap(threads2Controller.modifyThreads))
+router.put("/modify/:id", validateToken, asyncWrap(threads2Controller.modifyThreads))
 
 module.exports = { router };

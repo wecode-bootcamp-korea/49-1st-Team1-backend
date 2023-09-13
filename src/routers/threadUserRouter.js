@@ -1,8 +1,8 @@
 const express = require("express");
-const threadController = require("../controllers");
+const { threadController } = require("../controllers");
 const { asyncWrap } = require("../utils/errorHandler");
 const router = express.Router();
-const validateToken = require("../utils/validateToken")
+const validateToken = require("../utils/validateToken");
 
 router.post("/writeThread", validateToken, asyncWrap(threadController.writeThread));
 // router.post("/writeThread", asyncWrap(threadController.writeThread));

@@ -30,11 +30,13 @@ const signIn = async (req, res) => {
     throw error;
   }
 
-  const token = await userService.signIn(email, password);
+  const data = await userService.signIn(email, password);
 
   res.status(200).json({
     message: "LOGIN_SUCCESS",
-    accessToken: token,
+    accessToken: data.accessToken,
+    nickname: data.nickname,
+    profileImage: data.profileImage,
   });
 };
 

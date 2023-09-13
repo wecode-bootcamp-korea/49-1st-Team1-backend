@@ -40,7 +40,6 @@ const findByEmail = async (email) => {
     [email]
   );
 
-  console.log(user);
   return user;
 };
 

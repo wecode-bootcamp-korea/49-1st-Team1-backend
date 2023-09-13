@@ -1,5 +1,4 @@
-const userDao = require("../models/thread_dao");
-
+const userDao = require("../models/threadDao");
 
 const threadWrite = async (newThreadUser, newThreadContent) => {
 
@@ -14,7 +13,6 @@ const threadWrite = async (newThreadUser, newThreadContent) => {
   await userDao.insertThread(newThreadUser, newThreadContent)
 
 };
-
 
 const threadDelete = async (threadId, userId) => {
 

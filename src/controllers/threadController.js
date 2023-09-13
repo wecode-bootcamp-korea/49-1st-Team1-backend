@@ -1,6 +1,5 @@
 //require
-const userService = require ("../services/thread_services");
-
+const userService = require ("../services/threadServices");
 
 const writeThread = async (req, res) => {
 
@@ -8,7 +7,6 @@ const writeThread = async (req, res) => {
         const newThread = req.body
         const newThreadContent = newThread.content
         const newThreadUser = newThread.user_id
-
 
         //쓰레드 db에 등록
         await userService.threadWrite(newThreadUser, newThreadContent)
@@ -24,7 +22,6 @@ const deleteThread = async (req, res) => {
         const thread = req.body
         const threadId = thread.id
         const userId = thread.user_id
-
 
         // 쓰레드 삭제
         await userService.threadDelete(threadId, userId)

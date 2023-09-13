@@ -56,7 +56,15 @@ const signIn = async (email, password) => {
     throw error;
   }
 
-  return jwt.sign({ id: existingUser.id }, process.env.SECRET_KEY);
+  return {
+    accessToken: jwt.sign({ id: existingUser.id }, process.env.SECRET_KEY),
+    nickname: existingUser.nickname,
+    profileImage: existingUser.profile_image,
+  };
 };
 
-module.exports = { signUp, signIn };
+const findUser = async (userId) => {
+  return await userDao.findById(userId);
+};
+
+module.exports = { signUp, signIn, findUser };

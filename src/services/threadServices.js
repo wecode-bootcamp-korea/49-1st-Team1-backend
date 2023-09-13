@@ -1,4 +1,4 @@
-const userDao = require("../models/threadDao");
+const userDao = require("../models");
 
 const threadWrite = async (newThreadUser, newThreadContent) => {
 

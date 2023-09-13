@@ -1,5 +1,5 @@
 const express = require("express");
-const threadController = require("../controllers/threadController");
+const threadController = require("../controllers");
 const { asyncWrap } = require("../utils/errorHandler");
 const router = express.Router();
 const validateToken = require("../utils/validateToken")

@@ -1,4 +1,4 @@
-const threads2Service = require('../services/threads2Service');
+const threads2Service = require('../services');
 
 // 쓰레드 목록 보기
 const threadsList = async (req, res) => {

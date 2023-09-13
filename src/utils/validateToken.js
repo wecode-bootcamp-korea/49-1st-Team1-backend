@@ -1,4 +1,5 @@
-const userService = require("../services/userService");
+const userService = require("../services");
+const userDao = require("../models");
 const jwt = require("jsonwebtoken");
 
 const validateToken = async (req, res, next) => {

@@ -1,5 +1,5 @@
 const express = require("express");
-const threads2Controller = require("../controllers/threads2Controller");
+const threads2Controller = require("../controllers");
 const validateToken = require("../utils/validateToken")
 const { asyncWrap } = require("../utils/errorHandler");
 

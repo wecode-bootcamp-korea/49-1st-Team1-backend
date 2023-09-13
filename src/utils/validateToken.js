@@ -1,4 +1,4 @@
-const userDao = require("../models/userDao");
+const userService = require("../services/userService");
 const jwt = require("jsonwebtoken");
 
 const validateToken = async (req, res, next) => {
@@ -13,7 +13,7 @@ const validateToken = async (req, res, next) => {
 
     const { id } = jwt.verify(accessToken, process.env.SECRET_KEY);
 
-    const foundUser = await userDao.findById(id);
+    const foundUser = await userService.findUser(id);
 
     if (!foundUser) {
       const error = new Error("USER_NOT_FOUND");

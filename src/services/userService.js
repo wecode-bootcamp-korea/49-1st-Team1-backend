@@ -63,4 +63,8 @@ const signIn = async (email, password) => {
   };
 };
 
-module.exports = { signUp, signIn };
+const findUser = async (userId) => {
+  return await userDao.findById(userId);
+};
+
+module.exports = { signUp, signIn, findUser };

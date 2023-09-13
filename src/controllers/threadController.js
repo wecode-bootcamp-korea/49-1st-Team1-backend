@@ -1,5 +1,5 @@
 //require
-const userService = require ("../services/threadServices");
+const userService = require ("../services");
 
 const writeThread = async (req, res) => {
 
@@ -11,7 +11,7 @@ const writeThread = async (req, res) => {
         //쓰레드 db에 등록
         await userService.threadWrite(newThreadUser, newThreadContent)
 
-        return res.status(200).json({
+        return res.status(201).json({
             message: "THREAD_CREATED"
         })
     };

@@ -1,4 +1,4 @@
-const threads2Dao = require('../models/threads2Dao')
+const threads2Dao = require('../models')
 
 const threadsList = async () => {
 

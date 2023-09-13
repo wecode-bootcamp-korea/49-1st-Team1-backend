@@ -36,18 +36,12 @@ const signUp = async (nickname, email, password, phoneNumber, birthday, profileI
     throw error;
   }
 
-  const encryptedPw = await bcrypt.hash(password, 2);
+  const encryptedPw = await bcrypt.hash(password, 10);
 
   await userDao.save(nickname, email, encryptedPw, phoneNumber, birthday, profileImage);
 };
 
 const signIn = async (email, password) => {
-  if (!email || !password) {
-    const error = new Error("KEY_ERROR");
-    error.status = 400;
-    throw error;
-  }
-
   const existingUser = await userDao.findByEmail(email);
   if (!existingUser) {
     const error = new Error("ACCOUNT_DOES_NOT_EXIST");

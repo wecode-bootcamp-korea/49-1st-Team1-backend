@@ -4,7 +4,7 @@ const threadsList = async () => {
     try {
 
         const result = await myDataSource.query(
-        `
+            `
         SELECT 
             threads.id as postId,
             users.nickname,
@@ -24,16 +24,15 @@ const threadsList = async () => {
 }
 
 const findThreadById = async (id) => {
-    
+
     try {
-        const thread = await myDataSource.query (
+        const result = await myDataSource.query(
             `
             SELECT * FROM threads WHERE id = ?
             `, [id]
         )
-        console.log("findThreadById : ", thread)
 
-        return thread;
+        return result;
 
     } catch (err) {
         console.log(err)
@@ -44,8 +43,8 @@ const findThreadById = async (id) => {
 const modifyThreads = async (id, content) => {
 
     try {
-        
-        await myDataSource.query (
+
+        await myDataSource.query(
             `
             UPDATE threads
             SET content = ?
@@ -54,7 +53,7 @@ const modifyThreads = async (id, content) => {
             [content, id]
         )
 
-    } catch(err) {
+    } catch (err) {
         console.log(err)
     }
 }

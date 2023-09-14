@@ -14,10 +14,10 @@ const threadsList = async () => {
        users.nickname,
        users.profile_image as profileImage,
        threads.content,
-       threads.created_at as createdAt
+       DATE_FORMAT(threads.created_at, '%y.%m.%d') as createdAt
       FROM threads
       JOIN users ON threads.user_id = users.id
-      ORDER BY createdAt DESC
+      ORDER BY postId DESC
       `
   );
   return result;

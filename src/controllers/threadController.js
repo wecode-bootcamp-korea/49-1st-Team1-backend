@@ -24,9 +24,9 @@ const threadsList = async (req, res) => {
 
 const modifyThreads = async (req, res) => {
 
-    const { threadId } = req.params; // URL 경로에서 매개 변수 추출 (/modify/:id)
-    const { content } = req.body; // 요청 본문에서 내용 추출
-    const { foundUser } = req; // 이전 미들웨어에서 설정한 사용자 정보 추출 (validateToken 미들웨어에서 설정한 foundUser)
+    const { threadId } = req.params; 
+    const { content } = req.body; 
+    const { foundUser } = req;
 
     const result = await threadService.modifyThreads(foundUser, threadId, content);
     console.log("thread check")

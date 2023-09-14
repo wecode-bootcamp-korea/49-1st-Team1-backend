@@ -19,19 +19,17 @@ const threadsList = async () => {
 };
 
 const modifyThreads = async (foundUser, threadId, content) => {
-  const thread = await threadDao.findThreadById(threadId);
+  const [thread] = await threadDao.findThreadById(threadId);
 
-  //TypeError: Cannot read property 'user_id' of undefined도 처리하기 위해 || typeof thread[0] === 'undefined' 추가
-  if (!thread || typeof thread[0] === "undefined") {
+  if (!thread || typeof thread === "undefined") {
     const error = new Error("THREAD_NOT_FOUND");
     error.status = 404;
     throw error;
   }
 
-  // 작성자 = 로그인한 사용자인지
-  if (thread[0].user_id !== foundUser.id) {
+  if (thread.user_id !== foundUser.id) {
     const error = new Error("FORBIDDEN_USER");
-    error.status = 403; // 403 : Forbidden 클라이언트가 요청한 리소스에 접근 권한 X
+    error.status = 403;
     throw error;
   }
 

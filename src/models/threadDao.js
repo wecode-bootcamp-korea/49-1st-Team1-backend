@@ -2,7 +2,7 @@ const { myDataSource } = require("./dataSource");
 
 const insertThread = async (newThreadUser, newThreadContent) => {
   await myDataSource.query(
-    `INSERT INTO threads (user_id, content) VALUES ("${newThreadUser}", "${newThreadContent}")`
+    `INSERT INTO threads (user_id, content) VALUES ?, ?)`, [newThreadUser,newThreadContent]
   );
 };
 
@@ -25,14 +25,14 @@ const threadsList = async () => {
 
 const findThreadById = async (threadId) => {
   const thread = await myDataSource.query(
-    `SELECT * FROM threads WHERE id = "${threadId}"`
+    `SELECT * FROM threads WHERE id = ?`, [threadId]
   );
   return thread;
 };
 
 const findThreadUser = async (userId) => {
   const user = await myDataSource.query(
-    `SELECT * FROM threads WHERE user_id = "${userId}"`
+    `SELECT * FROM threads WHERE user_id = ?`, [userId]
   );
   return user;
 };

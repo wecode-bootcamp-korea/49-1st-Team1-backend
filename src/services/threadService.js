@@ -37,7 +37,7 @@ const modifyThreads = async (foundUser, threadId, content) => {
 
   await threadDao.modifyThreads(threadId, content);
   // 에러가 발생하지 않았다면 클라이언트에게 성공 응답
-  return { success: true, message: "update success" };
+  return { success: true, message: "UPDATE_SUCCESS" };
 };
 
 const threadDelete = async (threadId, userId) => {
@@ -55,7 +55,7 @@ const threadDelete = async (threadId, userId) => {
   const thisUserThread = await threadDao.findThreadUser(userId);
   console.log(thisUserThread);
   if (existingThread.length > 0 && thisUserThread.length == 0) {
-    const err = new Error("NOT_YOUR_THREAD");
+    const err = new Error("NO_ACCESS");
     err.status = 400;
 
     throw err;

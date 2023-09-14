@@ -1,9 +1,9 @@
-const threadServices = require("./threadServices");
+const threadService = require("./threadService");
 const userService = require("./userService");
 const likeService = require("./likeService");
 
 module.exports = {
-  threadServices,
+  threadService,
   userService,
   likeService
 };

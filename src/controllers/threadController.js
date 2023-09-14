@@ -1,13 +1,10 @@
-//require
 const { threadServices } = require("../services");
 
 const writeThread = async (req, res) => {
-  //쓰레드 가져오기
   const newThread = req.body;
   const newThreadContent = newThread.content;
   const newThreadUser = newThread.user_id;
 
-  //쓰레드 db에 등록
   await threadServices.threadWrite(newThreadUser, newThreadContent);
 
   return res.status(201).json({
@@ -15,23 +12,50 @@ const writeThread = async (req, res) => {
   });
 };
 
+const threadsList = async (req, res) => {
+  try {
+    const threadsData = await threadServices.threadsList();
+
+    return res.status(201).json({
+      message: "READ_SUCCESS",
+      data: threadsData,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(err.status || 500).json({ message: err.message });
+  }
+};
+
+const modifyThreads = async (req, res) => {
+  try {
+    const { threadId } = req.params; // URL 경로에서 매개 변수 추출 (/modify/:id)
+    const { content } = req.body; // 요청 본문에서 내용 추출
+    const { foundUser } = req; // 이전 미들웨어에서 설정한 사용자 정보 추출 (validateToken 미들웨어에서 설정한 foundUser)
+
+    const result = await threadServices.modifyThreads(foundUser, threadId, content);
+    console.log("thread check")
+    res.status(200).json({ message: result.message });
+  } catch (err) {
+    console.error(err);
+    res.status(err.status || 500).json({ message: err.message });
+  }
+};
+
 const deleteThread = async (req, res) => {
-  //  삭제할 쓰레드
   const thread = req.body;
   const threadId = thread.id;
   const userId = thread.user_id;
 
-  // 쓰레드 삭제
   await threadServices.threadDelete(threadId, userId);
 
-  //response
   return res.status(200).json({
-    message: "THREAD_DELETED",
+    message: "THREAD_DELETED"
   });
 };
 
-//모듈 export하기
 module.exports = {
   writeThread,
-  deleteThread,
+  threadsList,
+  modifyThreads,
+  deleteThread
 };

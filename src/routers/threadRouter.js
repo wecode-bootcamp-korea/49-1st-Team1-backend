@@ -5,8 +5,8 @@ const router = express.Router();
 const validateToken = require("../utils/validateToken");
 
 router.post("/writeThread", validateToken, asyncWrap(threadController.writeThread));
-// router.post("/writeThread", asyncWrap(threadController.writeThread));
-
 router.post("/deleteThread", validateToken, asyncWrap(threadController.deleteThread));
+router.get("/", asyncWrap(threadController.threadsList));
+router.put("/modify/:threadId", validateToken, asyncWrap(threadController.modifyThreads));
 
 module.exports = { router };

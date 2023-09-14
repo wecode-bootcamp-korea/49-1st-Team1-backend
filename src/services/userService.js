@@ -1,5 +1,9 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const {
+  phoneNumberMinimumLength,
+  birthdayRegExp
+} = require ('../utils/userValidatingRules')
 const { userDao } = require("../models");
 
 const signUp = async (nickname, email, password, phoneNumber, birthday, profileImage) => {
@@ -10,26 +14,26 @@ const signUp = async (nickname, email, password, phoneNumber, birthday, profileI
     throw error;
   }
 
-  const existingUser = await userDao.findByEmail(email);
+  const existingUser = await userDao.findUserByEmail(email);
   if (existingUser) {
     const error = new Error("DUPLICATED_EMAIL_ADDRESS");
     error.status = 400;
     throw error;
   }
 
-  if (password.length < 10) {
+  const passwordMinimumLength = 10;
+  if (password.length < passwordMinimumLength) {
     const error = new Error("INVALID_PASSWORD");
     error.status = 400;
     throw error;
   }
 
-  if (phoneNumber && phoneNumber.length < 11) {
+  if (phoneNumber && phoneNumber.length < phoneNumberMinimumLength) {
     const error = new Error("INVALID_PHONE_NUMBER");
     error.status = 400;
     throw error;
   }
 
-  const birthdayRegExp = /^\d{4}-\d{2}-\d{2}$/;
   if (birthday && !birthdayRegExp.test(birthday)) {
     const error = new Error("INVALID_BIRTHDAY");
     error.status = 400;
@@ -38,11 +42,11 @@ const signUp = async (nickname, email, password, phoneNumber, birthday, profileI
 
   const encryptedPw = await bcrypt.hash(password, 10);
 
-  await userDao.save(nickname, email, encryptedPw, phoneNumber, birthday, profileImage);
+  await userDao.createUser(nickname, email, encryptedPw, phoneNumber, birthday, profileImage);
 };
 
 const signIn = async (email, password) => {
-  const existingUser = await userDao.findByEmail(email);
+  const existingUser = await userDao.findUserByEmail(email);
   if (!existingUser) {
     const error = new Error("ACCOUNT_DOES_NOT_EXIST");
     error.status = 404;
@@ -64,7 +68,7 @@ const signIn = async (email, password) => {
 };
 
 const findUser = async (userId) => {
-  return await userDao.findById(userId);
+  return await userDao.findUserById(userId);
 };
 
 module.exports = { signUp, signIn, findUser };

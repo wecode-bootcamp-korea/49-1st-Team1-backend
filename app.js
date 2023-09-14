@@ -3,8 +3,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 dotenv.config();
-const jwt = require("jsonwebtoken");
 const { myDataSource } = require("./src/models/dataSource");
+
 const routers = require("./src/routers");
 const { errorHandler } = require("./src/utils/errorHandler");
 

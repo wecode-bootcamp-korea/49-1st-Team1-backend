@@ -25,6 +25,7 @@ const validateToken = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
+    // needs jwt malformed error handling
     next(error);
   }
 };

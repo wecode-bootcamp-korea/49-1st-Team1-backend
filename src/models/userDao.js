@@ -1,26 +1,24 @@
 const { myDataSource } = require("./dataSource");
 
-const save = async (nickname, email, password, phoneNumber, birthday, profileImage) => {
-  await myDataSource.query(
-    `
-  INSERT INTO users (
-    nickname,
-    email,
-    password,
-    phone_number,
-    birth_day,
-    profile_image
-    )
-    VALUES (?, ?, ?, ?, ?, ?)
-    `,
+const createUser = async (nickname, email, password, phoneNumber, birthday, profileImage) => {
+  await myDataSource.query(`
+    INSERT INTO users (
+      nickname,
+      email,
+      password,
+      phone_number,
+      birth_day,
+      profile_image
+    ) VALUES (?, ?, ?, ?, ?, ?)
+  `,
     [nickname, email, password, phoneNumber, birthday, profileImage]
   );
 };
 
-const findById = async (id) => {
+const findUserById = async (id) => {
   const [user] = await myDataSource.query(
     `
-    SELECT *
+    SELECT id, email, password
     FROM users
     WHERE id = ?
     `,
@@ -30,10 +28,10 @@ const findById = async (id) => {
   return user;
 };
 
-const findByEmail = async (email) => {
+const findUserByEmail = async (email) => {
   const [user] = await myDataSource.query(
     `
-    SELECT *
+    SELECT id, email
     FROM users
     WHERE email = ?
     `,
@@ -43,4 +41,4 @@ const findByEmail = async (email) => {
   return user;
 };
 
-module.exports = { save, findById, findByEmail };
+module.exports = { createUser, findUserById, findUserByEmail };

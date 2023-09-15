@@ -12,8 +12,12 @@ const threadWrite = async (newThreadUser, newThreadContent) => {
   await threadDao.insertThread(newThreadUser, newThreadContent);
 };
 
-const threadsList = async () => {
+const threadsList = async (userId) => {
   const threadsListData = await threadDao.threadsList();
+
+  threadsListData.forEach((thread) => {
+    thread.isMyPost = thread.userId === userId;
+  });
 
   return threadsListData;
 };

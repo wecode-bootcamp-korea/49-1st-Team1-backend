@@ -22,6 +22,25 @@ const threadsList = async () => {
   return result;
 };
 
+const threadsDetail = async (threadId) => {
+
+  const [result] = await myDataSource.query (
+      `
+      SELECT 
+       threads.id as postId,
+       threads.user_id,
+       users.nickname,
+       users.profile_image as profileImage,
+       threads.content
+      FROM threads
+      JOIN users ON threads.user_id = users.id
+      WHERE threads.id = ?
+      `, [threadId]
+  )
+
+  return result;
+}
+
 const findThreadById = async (threadId) => {
   const thread = await myDataSource.query(`SELECT * FROM threads WHERE id = ?`, [threadId]);
   return thread;
@@ -51,6 +70,7 @@ const deleteThread = async (threadId, userId) => {
 module.exports = {
   insertThread,
   threadsList,
+  threadsDetail,
   findThreadById,
   findThreadUser,
   modifyThreads,

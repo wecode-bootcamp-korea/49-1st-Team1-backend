@@ -5,7 +5,7 @@ const router = express.Router();
 const { validateToken, tokenParser } = require("../utils/validateToken");
 
 router.post("/", validateToken, asyncWrap(threadController.writeThread));
-router.delete("/", validateToken, asyncWrap(threadController.deleteThread));
+router.delete("/:id", validateToken, asyncWrap(threadController.deleteThread));
 router.get("/", tokenParser, asyncWrap(threadController.threadsList));
 router.put("/:threadId", validateToken, asyncWrap(threadController.modifyThreads));
 

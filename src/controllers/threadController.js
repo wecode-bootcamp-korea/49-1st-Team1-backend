@@ -35,9 +35,8 @@ const modifyThreads = async (req, res) => {
 };
 
 const deleteThread = async (req, res) => {
-  const thread = req.body;
-  const threadId = thread.id;
-  const userId = thread.user_id;
+  const threadId = req.params.id;
+  const userId = req.foundUser.id;
 
   await threadService.threadDelete(threadId, userId);
 

@@ -22,6 +22,25 @@ const threadsList = async (userId) => {
   return threadsListData;
 };
 
+const threadsDetail = async (threadId, userId) => {
+ 
+  const threadsData = await threadDao.threadsDetail(threadId);
+
+  if (!threadsData || typeof threadsData === "undefined") {
+    const error = new Error("THREAD_NOT_FOUND");
+    error.status = 404;
+    throw error;
+  }
+  
+  if (threadsData.user_id != userId) {
+    const error = new Error("FORBIDDEN_USER");
+    error.status = 403;
+    throw error;
+  }
+
+  return threadsData;
+}
+
 const modifyThreads = async (foundUser, threadId, content) => {
   const [thread] = await threadDao.findThreadById(threadId);
 
@@ -66,4 +85,10 @@ const threadDelete = async (threadId, userId) => {
   await threadDao.deleteThread(threadId, userId);
 };
 
-module.exports = { threadWrite, threadsList, modifyThreads, threadDelete };
+module.exports = {
+  threadWrite,
+  threadsList,
+  threadsDetail,
+  modifyThreads,
+  threadDelete
+};

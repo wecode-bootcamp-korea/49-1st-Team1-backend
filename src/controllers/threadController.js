@@ -23,14 +23,27 @@ const threadsList = async (req, res) => {
   });
 };
 
+const threadsDetail = async (req, res) => {
+  const foundUser = req.foundUser;
+  const  userId  = foundUser ? foundUser.id : undefined;
+  const {threadId }   = req.params;
+  const threadsData = await threadService.threadsDetail(threadId, userId);
+
+  console.log("controller userId : " , userId)
+  console.log("controller threadId : ", threadId)
+  return res.status(200).json({
+    message: "READ_SUCCESS",
+    data : threadsData
+  })
+}
+
 const modifyThreads = async (req, res) => {
   const { threadId } = req.params;
   const { content } = req.body;
   const { foundUser } = req;
 
+  
   const result = await threadService.modifyThreads(foundUser, threadId, content);
-  console.log("thread check");
-
   res.status(200).json({ message: result.message });
 };
 
@@ -49,6 +62,7 @@ const deleteThread = async (req, res) => {
 module.exports = {
   writeThread,
   threadsList,
+  threadsDetail,
   modifyThreads,
   deleteThread,
 };
